@@ -86,6 +86,9 @@ gulp.task('optimize:templates', ['optimize:styles', 'optimize:scripts'], functio
 });
 
 gulp.task('copy:lib', ['clean'], function () {
+    gulp.src('node_modules/ko-component-router/ko-component-router.min.js')
+        .pipe(gulp.dest('bower_components/ko-component-router/'));
+
     return gulp.src(['bower_components/**/*', 'js/lib/**/*'])
         .pipe(gulp.dest('build/dist/bower_components/'));
 });

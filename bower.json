@@ -17,15 +17,16 @@
   ],
   "devDependencies": {},
   "dependencies": {
-    "jquery": "^3.1.1",
+    "jquery": "^3.2.0",
     "jquery-ui": "^1.12.1",
     "lodash": "^4.17.4",
-    "knockout": "^3.4.1",
+    "knockout": "^3.4.2",
     "knockout-projections": "^1.1.0",
     "knockout-validation": "^2.0.3",
-    "knockout-postbox": "^0.5.2",
     "knockout-dragula": "^0.2.3",
-    "materialize": "^0.97.8",
-    "knockout-es5-option4": "^0.8.1"
+    "materialize": "^0.98.0",
+    "knockout-es5-option4": "^0.8.1",
+    "axios": "^0.15.3",
+    "js-signals": "^1.0.0"
   }
 }
