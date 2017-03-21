@@ -14,6 +14,7 @@ var browserify = require('browserify'),
     watchify = require('watchify'),
     babel = require("gulp-babel"),
     babelify = require("babelify"),
+    stringify = require('stringify'),
     gutil = require('gulp-util'),
     sourcemaps = require('gulp-sourcemaps'),
     notify = require('gulp-notify'),
@@ -58,6 +59,10 @@ gulp.task('clean', function () {
 gulp.task('optimize:scripts', ['clean'], function() {
     return browserify('./js/index.js')
         .transform(babelify)
+        .transform(stringify, {
+            appliesTo: { includeExtensions: ['.html'] },
+            minify: false
+        })
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
