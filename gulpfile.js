@@ -33,7 +33,7 @@ var browserify = require('browserify'),
     cleancss = require('gulp-clean-css'),
     stripdebug = require('gulp-strip-debug'),
     htmlmin = require('gulp-htmlmin'),
-    image = require('gulp-image'),
+    imagemin = require('gulp-imagemin'),
     glob = require('glob'),
     es = require('event-stream');
 
@@ -44,6 +44,7 @@ gulp.task('set-dev-node-env', function() {
     return process.env.NODE_ENV = 'development';
 });
 
+// gulp run:prod --production
 gulp.task('set-prod-node-env', function() {
     return process.env.NODE_ENV = 'production';
 });
@@ -66,7 +67,9 @@ gulp.task('optimize:scripts', ['clean'], function() {
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
+        .pipe(sourcemaps.init({largeFile: true}))
         .pipe(gulpif(argv.production, uglify()))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('build/dist/scripts/'));
 });
 
@@ -83,18 +86,18 @@ gulp.task('test', function () {
 });
 
 gulp.task('optimize:templates', ['optimize:styles', 'optimize:scripts'], function () {
-    gulp.src('views/**/*')
-    .pipe(gulp.dest('build/dist/views'));
-
     return gulp.src('index.html')
         .pipe(gulp.dest('build/dist/'));
 });
 
 gulp.task('copy:lib', ['clean'], function () {
-    gulp.src('node_modules/ko-component-router/ko-component-router.min.js')
-        .pipe(gulp.dest('bower_components/ko-component-router/'));
+    gulp.src('js/lib/**/*')
+        .pipe(gulp.dest('build/dist/scripts/lib/'));
 
-    return gulp.src(['bower_components/**/*', 'js/lib/**/*'])
+    gulp.src('node_modules/ko-component-router/dist/ko-component-router.min.js')
+        .pipe(gulp.dest('build/dist/scripts/lib/ko-component-router/'));
+
+    return gulp.src(['bower_components/**/*'])
         .pipe(gulp.dest('build/dist/bower_components/'));
 });
 
@@ -105,24 +108,16 @@ gulp.task('copy:fonts', ['clean'], function () {
 
 gulp.task('optimize:images', ['clean'], function () {
     return gulp.src('css/images/**/*')
-        .pipe(gulpif(optimizeAssets, image({
-            pngquant: true,
-            optipng: false,
-            zopflipng: true,
-            advpng: true,
-            jpegRecompress: false,
-            jpegoptim: true,
-            mozjpeg: true,
-            gifsicle: true,
-            svgo: true
-        })))
+        .pipe(gulpif(optimizeAssets, imagemin()))
         .pipe(gulp.dest('build/dist/css/images/'));
 });
 
 gulp.task('optimize:styles', ['clean'], function () {
     return gulp.src(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'])
+        .pipe(sourcemaps.init({largeFile: true}))
         .pipe(sass())
         .pipe(gulpif(optimizeAssets, cleancss()))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('build/dist/css/'));
 });
 
@@ -143,8 +138,20 @@ gulp.task('run:prod', ['set-prod-node-env', 'clean', 'optimize:scripts', 'optimi
 /**
  * Watch for changes
  */
-gulp.task('watch:scripts', function () {
-    return gulp.watch(['js/**/*'], ['watch:optimize_scripts']);
+gulp.task('watch:clean_styles', function () {
+    return del('build/dist/css/');
+});
+
+gulp.task('watch:replace_styles', ['watch:clean_styles'], function () {
+    return gulp.src(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'])
+        .pipe(sourcemaps.init({largeFile: true}))
+        .pipe(sass())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('build/dist/css/'));
+});
+
+gulp.task('watch:styles', function () {
+    return gulp.watch(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'], ['watch:replace_styles']);
 });
 
 /**
@@ -155,10 +162,10 @@ var bundler = watchify(browserify(watchify.args));
 bundler.add([
     './js/index.js',
     './js/app/AppRoutes.js',
-    './js/components/common/AppHeader.js',
-    './js/components/home/Home.js',
-    './js/components/login/Login.js',
-    './js/components/signup/SignUp.js',
+    './js/common/components/AppHeader.js',
+    './js/routes-components/home/Home.js',
+    './js/routes-components/login/Login.js',
+    './js/routes-components/signup/SignUp.js',
     './js/stores/AppStore.js',
     './js/stores/LoginStore.js',
     './js/stores/SignUpStore.js'
@@ -172,12 +179,10 @@ bundler.on('log', gutil.log); // output build logs to terminal
 
 function bundle() {
     return bundler.bundle()
-    // log errors if they happen
         .on('error', gutil.log.bind(gutil, 'Browserify Error'))
         .pipe(source('bundle.js'))
-        // minify for production
         .pipe(buffer())
-        //.pipe(uglify())
-        //.pipe(rename({ extname: '.min.js' }))
+        .pipe(sourcemaps.init({largeFile: true}))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest('build/dist/scripts/'));
 }

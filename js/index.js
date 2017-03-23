@@ -1,6 +1,6 @@
 import AppRoutes from './app/AppRoutes';
 
-import AppHeader from './common-components/AppHeader';
+import AppHeader from './common/components/AppHeader';
 
 import Home from './routes-components/home/Home';
 import SignUp from './routes-components/signup/SignUp';
