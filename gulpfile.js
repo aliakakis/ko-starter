@@ -161,14 +161,14 @@ var bundler = watchify(browserify(watchify.args));
 // add the file to bundle
 bundler.add([
     './js/index.js',
-    './js/app/AppRoutes.js',
-    './js/common/components/AppHeader.js',
-    './js/routes-components/home/Home.js',
-    './js/routes-components/login/Login.js',
-    './js/routes-components/signup/SignUp.js',
-    './js/stores/AppStore.js',
-    './js/stores/LoginStore.js',
-    './js/stores/SignUpStore.js'
+    './js/app/app-routes.js',
+    './js/common/components/app-header.js',
+    './js/routes-components/home/home.js',
+    './js/routes-components/login/login.js',
+    './js/routes-components/signup/signup.js',
+    './js/stores/app-store.js',
+    './js/stores/login-store.js',
+    './js/stores/signup-store.js'
 ]);
 // add any other browserify options or transforms here
 bundler.transform(babelify);

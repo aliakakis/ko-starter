@@ -1,10 +1,10 @@
-import AppRoutes from './app/AppRoutes';
+import AppRoutes from './app/app-routes';
 
-import AppHeader from './common/components/AppHeader';
+import AppHeader from './common/components/app-header';
 
-import Home from './routes-components/home/Home';
-import SignUp from './routes-components/signup/SignUp';
-import Login from './routes-components/login/Login';
+import Home from './routes-components/home/home';
+import SignUp from './routes-components/signup/signup';
+import Login from './routes-components/login/login';
 
 ko.components.register('app-routes', AppRoutes);
 
