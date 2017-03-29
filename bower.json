@@ -27,6 +27,7 @@
     "materialize": "^0.98.0",
     "knockout-es5-option4": "^0.8.1",
     "axios": "^0.15.3",
-    "js-signals": "^1.0.0"
+    "js-signals": "^1.0.0",
+    "director": "^1.2.8"
   }
 }
