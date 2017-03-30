@@ -11,5 +11,5 @@ class Login {
 
 export default {
     viewModel: Login,
-    template: require('./Login.html')
+    template: require('./login-page.component.html')
 };

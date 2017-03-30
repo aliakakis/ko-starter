@@ -161,17 +161,21 @@ var bundler = watchify(browserify(watchify.args));
 // add the file to bundle
 bundler.add([
     './js/index.js',
-    './js/app/app-routes.js',
-    './js/common/components/app-header.js',
-    './js/routes-components/home/home.js',
-    './js/routes-components/login/login.js',
-    './js/routes-components/signup/signup.js',
+    './js/app/app-routes.component.js',
+    './js/common/components/app-header.component.js',
+    './js/routes-components/home/home-page.component.js',
+    './js/routes-components/login/login-page.component.js',
+    './js/routes-components/signup/signup-page.component.js',
     './js/stores/app-store.js',
     './js/stores/login-store.js',
     './js/stores/signup-store.js'
 ]);
 // add any other browserify options or transforms here
 bundler.transform(babelify);
+bundler.transform(stringify, {
+    appliesTo: { includeExtensions: ['.html'] },
+    minify: false
+});
 
 gulp.task('run:watchify', bundle); // so you can run `gulp watchify` to build the file
 bundler.on('update', bundle); // on any dep update, runs the bundler
