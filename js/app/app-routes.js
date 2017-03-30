@@ -1,3 +1,8 @@
+import ko from 'knockout';
+
+// import router
+import 'ko-component-router';
+
 class App {
     constructor() {
         this.base = window.location.pathname.substring(0, window.location.pathname.length - 1);
