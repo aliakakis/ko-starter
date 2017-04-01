@@ -1,3 +1,5 @@
+import ko from 'knockout';
+
 import AppRoutes from './app/app-routes.component';
 
 import AppHeader from './common/components/app-header.component';

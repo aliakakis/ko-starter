@@ -1,3 +1,5 @@
+//import ko from 'knockout';
+
 class SignUp {
     constructor() {
         this.model = ko.observe({

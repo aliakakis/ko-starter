@@ -1,26 +1,20 @@
-import ko from 'knockout';
+//import ko from 'knockout';
 
 class App {
     constructor() {
-        this.currentRoute = ko.observable();
-
-        this.setRoute = function(page) {
-            this.currentRoute(arguments[0]+'-page');
-        };
-
+        this.currentRoute = ko.observable('');
         this.routes = {
-            '/:page': this.setRoute,
+            '/': this.setRoute,
             '/login': this.setRoute,
             '/signup': this.setRoute
         };
-
         this.router = Router(this.routes).init();
-        console.log(this.router);
     }
 
-    /*setRoute(route) {
-        this.currentRoute(route);
-    }*/
+    setRoute = () => {
+        this.currentRoute('login-page');
+        console.log(this.currentRoute());
+    }
 }
 
 export default {

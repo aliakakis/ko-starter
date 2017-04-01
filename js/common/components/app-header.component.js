@@ -1,3 +1,5 @@
+//import ko from 'knockout';
+
 class AppHeader {
     constructor() {
         this.username = ko.observable("John");
