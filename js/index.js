@@ -1,38 +1,20 @@
-import ko from 'knockout';
+//import ko from 'knockout';
 
-import AppRoutes from './app/app-routes.component';
+//import AppRoutes from './app-start/app-routes';
 
-import AppHeader from './common/components/app-header.component';
-
-import Home from './routes-components/home/home-page.component';
-import SignUp from './routes-components/signup/signup-page.component';
-import Login from './routes-components/login/login-page.component';
+import AppHeader from './common/components/app-header';
+import Home from './pages/home-page/home-page';
+import SignUp from './pages/signup/signup-page';
+import Login from './pages/login-page/login-page';
 
 ko.components.register('app-header', AppHeader);
-
 ko.components.register('home-page', Home);
 ko.components.register('signup-page', SignUp);
 ko.components.register('login-page', Login);
 
-ko.components.register('app-routes', AppRoutes);
+//ko.components.register('app-routes', AppRoutes);
 
 ko.applyBindings();
 
-/*class AppModule {
-    constructor() {
-        this.currentRoute = ko.observable();
-        this.routes = {
-            '/home': this.setRoute('home-page')
-        };
-
-        this.router = Router(this.routes).init();
-        console.log("AppModule", this.router);
-    }
-    setRoute(route) {
-        this.currentRoute(route);
-    }
-}
-
-let app = new AppModule();*/
 
 

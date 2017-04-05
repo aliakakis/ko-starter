@@ -69,6 +69,7 @@ gulp.task('optimize:scripts', ['clean'], function() {
         .pipe(buffer())
         .pipe(sourcemaps.init({largeFile: true}))
         .pipe(gulpif(argv.production, uglify()))
+        .pipe(gulpif(argv.production, stripdebug()))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('build/dist/scripts/'));
 });
@@ -94,8 +95,11 @@ gulp.task('copy:lib', ['clean'], function () {
     gulp.src('js/lib/**/*')
         .pipe(gulp.dest('build/dist/scripts/lib/'));
 
-    gulp.src('node_modules/ko-component-router/dist/ko-component-router.min.js')
-        .pipe(gulp.dest('build/dist/scripts/lib/ko-component-router/'));
+    gulp.src('semantic/dist/themes/**/*')
+        .pipe(gulp.dest('build/dist/semantic/dist/themes/'));
+
+    gulp.src('semantic/dist/*.min.*')
+        .pipe(gulp.dest('build/dist/semantic/dist/'));
 
     return gulp.src(['bower_components/**/*'])
         .pipe(gulp.dest('build/dist/bower_components/'));
@@ -161,11 +165,11 @@ var bundler = watchify(browserify(watchify.args));
 // add the file to bundle
 bundler.add([
     './js/index.js',
-    './js/app/app-routes.component.js',
-    './js/common/components/app-header.component.js',
-    './js/routes-components/home/home-page.component.js',
-    './js/routes-components/login/login-page.component.js',
-    './js/routes-components/signup/signup-page.component.js',
+    './js/app-start/app-routes.js',
+    './js/common/components/app-header.js',
+    './js/pages/home-page/home-page.js',
+    './js/pages/login-page/login-page.js',
+    './js/pages/signup-page/signup-page.js',
     './js/stores/app-store.js',
     './js/stores/login-store.js',
     './js/stores/signup-store.js'
