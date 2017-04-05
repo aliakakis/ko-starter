@@ -1,29 +1,35 @@
-(function ($) {
-    'use strict';
+class AppRoutes {
+    constructor() {
+        this.currentRoute = ko.observable('login-page');
+        const appRoutes = Sammy('#inductorsApp');
 
-    Sammy('#inductorsApp', function() {
-        function loadView(el, url, viewModel) {
-            let $view = $("#view");
-            if ($view.length) {
-                // Use ko.cleanNode($("#view")[0]) if you are not removing the element from the DOM
-                ko.removeNode($view[0]);
-            }
-            el.load(url, function() {
-                ko.applyBindings(viewModel, $("#view")[0]);
-            });
-        }
-
-        this.get('#/', function(context) {
-            loadView(context.$element(), 'views/main1.html', new App.viewModels.ViewModel1());
+        appRoutes.get('#/', (context) => {
+            this.loadRoute('login-page');
         });
 
-        this.get('#/text', function(context) {
-            loadView(context.$element(), 'views/text.html', new App.viewModels.ViewModel2());
+        appRoutes.get('#/login', (context) => {
+            this.loadRoute('login-page');
         });
 
-        this.get('', function(context) {
-            this.redirect('#/');
+        appRoutes.get('#/signup', (context) => {
+            this.loadRoute('signup-page');
         });
-    }).run();
 
-})(jQuery);
+        appRoutes.get('', (context) => {
+            context.redirect('#/');
+        });
+
+        appRoutes.run();
+    }
+
+    loadRoute = (route) => {
+        this.currentRoute(route);
+    };
+}
+
+export default {
+    viewModel: AppRoutes,
+    template: `
+        <div data-bind='component: {name: currentRoute, params: {}}'></div>
+    `
+};

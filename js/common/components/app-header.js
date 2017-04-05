@@ -14,15 +14,27 @@ class AppHeader {
 export default {
     viewModel: AppHeader,
     template: `
-        <nav class="teal lighten-2">
-            <div class="nav-wrapper">
-                <a data-bind="path: '/'" class="brand-logo">Logo</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a data-bind="path: '/signup'">Sass</a></li>
-                    <li><a data-bind="path: '/login'">Components</a></li>
-                    <li><a href="collapsible.html">JavaScript</a></li>
-                </ul>
+        <div class="ui secondary  menu">
+          <a class="active item">
+            Home
+          </a>
+          <a class="item">
+            Messages
+          </a>
+          <a class="item">
+            Friends
+          </a>
+          <div class="right menu">
+            <div class="item">
+              <div class="ui icon input">
+                <input type="text" placeholder="Search...">
+                <i class="search link icon"></i>
+              </div>
             </div>
-        </nav>
+            <a class="ui item">
+              Logout
+            </a>
+          </div>
+        </div>
     `
 };
