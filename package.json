@@ -4,7 +4,7 @@
   "description": "A KnockoutJS starter project",
   "main": "gulpfile.js",
   "dependencies": {
-    "axios": "^0.15.3",
+    "axios": "^0.16.0",
     "knockout": "^3.4.2",
     "ko-component-router": "^5.0.0-rc.3"
   },
@@ -33,7 +33,7 @@
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^3.2.0",
     "gulp-inject": "^4.2.0",
-    "gulp-mocha": "^4.2.0",
+    "gulp-mocha": "^4.3.0",
     "gulp-notify": "^3.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^7.1.2",

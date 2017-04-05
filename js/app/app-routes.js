@@ -1,29 +1,34 @@
-import ko from 'knockout';
+const Router = ko.router.default;
 
-// import router
-import 'ko-component-router';
+Router.setConfig({
+    // base path app runs under, i.e. '/app'
+    base: '',
+
+    // hashbang vs HTML5 (pushState) routing
+    hashbang: true,
+
+    // CSS class added to elements with a path binding that resolves to the current
+    // page — useful for styling navbars and tabs
+    activePathCSSClass: 'active-path'
+});
+
+Router.useRoutes({
+    routes: {
+        '/': 'home',
+        '/login': 'login',
+        '/signup': 'signup'
+    }
+});
 
 class App {
     constructor() {
-        this.base = window.location.pathname.substring(0, window.location.pathname.length - 1);
-        this.hashbang = true;
-        this.routes = {
-            '/': 'home',
-            '/login': 'login',
-            '/signup': 'signup'
-        }
+
     }
 }
 
 export default {
     viewModel: App,
-    template: `
-        <ko-component-router params="
-            routes: routes, 
-            base: base,
-            hashbang: hashbang"> 
-        </ko-component-router>
-    `
+    template: `<ko-component-router></ko-component-router>`
 };
 
 
