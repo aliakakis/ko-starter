@@ -21,6 +21,7 @@ var browserify = require('browserify'),
     mocha = require('gulp-mocha'),
     filter = require('gulp-filter'),
     gulpif = require('gulp-if'),
+    flatten = require('gulp-flatten'),
     debug = require('gulp-debug'),
     argv = require('yargs').argv,
     rev = require('gulp-rev'),
@@ -86,7 +87,7 @@ gulp.task('test', function () {
         }));
 });
 
-gulp.task('optimize:templates', ['optimize:styles', 'optimize:scripts'], function () {
+gulp.task('optimize:templates', ['clean', 'optimize:styles', 'optimize:scripts'], function () {
     return gulp.src('index.html')
         .pipe(gulp.dest('build/dist/'));
 });
