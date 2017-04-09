@@ -1,5 +1,3 @@
-//import ko from 'knockout';
-
 class Login {
     constructor() {
         this.username = ko.observable("John");

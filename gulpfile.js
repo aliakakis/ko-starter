@@ -166,7 +166,8 @@ var bundler = watchify(browserify(watchify.args));
 // add the file to bundle
 bundler.add([
     './js/index.js',
-    './js/app-start/app-routes.js',
+    './js/app-routes.js',
+    './js/app-start/app-start.js',
     './js/common/components/app-header.js',
     './js/pages/home-page/home-page.js',
     './js/pages/login-page/login-page.html',
