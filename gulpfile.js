@@ -163,7 +163,7 @@ gulp.task('watch:styles', function () {
  * Watchify
  */
 var bundler = watchify(browserify(watchify.args));
-// add the file to bundle
+
 bundler.add([
     './js/index.js',
     './js/app-routes.js',
@@ -178,16 +178,16 @@ bundler.add([
     './js/stores/login-store.js',
     './js/stores/signup-store.js'
 ]);
-// add any other browserify options or transforms here
+
 bundler.transform(babelify);
 bundler.transform(stringify, {
     appliesTo: { includeExtensions: ['.html'] },
     minify: false
 });
 
-gulp.task('run:watchify', bundle); // so you can run `gulp watchify` to build the file
-bundler.on('update', bundle); // on any dep update, runs the bundler
-bundler.on('log', gutil.log); // output build logs to terminal
+gulp.task('run:watchify', bundle);
+bundler.on('update', bundle);
+bundler.on('log', gutil.log);
 
 function bundle() {
     return bundler.bundle()

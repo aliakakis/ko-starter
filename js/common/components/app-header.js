@@ -13,13 +13,13 @@ export default {
     viewModel: AppHeader,
     template: `
         <div class="ui secondary  menu">
-          <a class="active item">
+          <a href="#/" class="active item">
             Home
           </a>
-          <a class="item">
+          <a href="#/login" class="item">
             Messages
           </a>
-          <a class="item">
+          <a href="#/signup" class="item">
             Friends
           </a>
           <div class="right menu">
