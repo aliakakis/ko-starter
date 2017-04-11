@@ -14,6 +14,7 @@ var browserify = require('browserify'),
     watchify = require('watchify'),
     babel = require("gulp-babel"),
     babelify = require("babelify"),
+    filepaths = require('node-filepaths'),
     stringify = require('stringify'),
     gutil = require('gulp-util'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -106,18 +107,14 @@ gulp.task('copy:lib', ['clean'], function () {
         .pipe(gulp.dest('build/dist/bower_components/'));
 });
 
-gulp.task('copy:fonts', ['clean'], function () {
-    return gulp.src('css/fonts/**/*')
+gulp.task('optimize:styles', ['clean'], function () {
+     gulp.src('css/fonts/**/*')
         .pipe(gulp.dest('build/dist/css/fonts/'));
-});
 
-gulp.task('optimize:images', ['clean'], function () {
-    return gulp.src('css/images/**/*')
+    gulp.src('css/images/**/*')
         .pipe(gulpif(optimizeAssets, imagemin()))
         .pipe(gulp.dest('build/dist/css/images/'));
-});
 
-gulp.task('optimize:styles', ['clean'], function () {
     return gulp.src(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'])
         .pipe(sourcemaps.init({largeFile: true}))
         .pipe(sass())
@@ -126,9 +123,9 @@ gulp.task('optimize:styles', ['clean'], function () {
         .pipe(gulp.dest('build/dist/css/'));
 });
 
-gulp.task('run:dev', ['set-dev-node-env', 'clean', 'optimize:scripts', 'optimize:images', 'optimize:styles', 'optimize:templates', 'copy:lib', 'copy:fonts']);
+gulp.task('run:dev', ['set-dev-node-env', 'clean', 'optimize:scripts', 'optimize:styles', 'optimize:templates', 'copy:lib']);
 
-gulp.task('run:prod', ['set-prod-node-env', 'clean', 'optimize:scripts', 'optimize:images', 'optimize:styles', 'optimize:templates', 'copy:lib', 'copy:fonts'], function () {
+gulp.task('run:prod', ['set-prod-node-env', 'clean', 'optimize:scripts', 'optimize:styles', 'optimize:templates', 'copy:lib'], function () {
     const notTemplateFilter = filter(['**/*', '!**/*.html'], {restore: true});
 
     return gulp.src(['build/dist/**/*'])
@@ -143,11 +140,17 @@ gulp.task('run:prod', ['set-prod-node-env', 'clean', 'optimize:scripts', 'optimi
 /**
  * Watch for changes
  */
-gulp.task('watch:clean_styles', function () {
+gulp.task('clean_styles', function () {
     return del('build/dist/css/');
 });
 
-gulp.task('watch:replace_styles', ['watch:clean_styles'], function () {
+gulp.task('replace_styles', ['clean_styles'], function () {
+    gulp.src('css/fonts/**/*')
+        .pipe(gulp.dest('build/dist/css/fonts/'));
+
+    gulp.src('css/images/**/*')
+        .pipe(gulp.dest('build/dist/css/images/'));
+
     return gulp.src(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'])
         .pipe(sourcemaps.init({largeFile: true}))
         .pipe(sass())
@@ -156,36 +159,39 @@ gulp.task('watch:replace_styles', ['watch:clean_styles'], function () {
 });
 
 gulp.task('watch:styles', function () {
-    return gulp.watch(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'], ['watch:replace_styles']);
+    return gulp.watch(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'], ['replace_styles']);
 });
 
 /**
  * Watchify
  */
 var bundler = watchify(browserify(watchify.args));
-
-bundler.add([
-    './js/index.js',
-    './js/app-routes.js',
-    './js/app-start/app-start.js',
-    './js/common/components/app-header.js',
-    './js/pages/home-page/home-page.js',
-    './js/pages/login-page/login-page.html',
-    './js/pages/login-page/login-page.js',
-    './js/pages/signup-page/signup-page.html',
-    './js/pages/signup-page/signup-page.js',
-    './js/stores/app-store.js',
-    './js/stores/login-store.js',
-    './js/stores/signup-store.js'
-]);
-
+var files = filepaths.getSync(['./js'], {
+    ext:    ['.js', '.html'],
+    ignore: ['lib']
+});
+bundler.add(files);
+/*[
+ './js/index.js',
+ './js/app-routes.js',
+ './js/app-start/app-start.js',
+ './js/common/components/app-header.js',
+ './js/pages/home-page/home-page.js',
+ './js/pages/login-page/login-page.html',
+ './js/pages/login-page/login-page.js',
+ './js/pages/signup-page/signup-page.html',
+ './js/pages/signup-page/signup-page.js',
+ './js/stores/app-store.js',
+ './js/stores/login-store.js',
+ './js/stores/signup-store.js'
+ ]*/
 bundler.transform(babelify);
 bundler.transform(stringify, {
     appliesTo: { includeExtensions: ['.html'] },
     minify: false
 });
 
-gulp.task('run:watchify', bundle);
+gulp.task('run:watchify', ['run:dev'], bundle);
 bundler.on('update', bundle);
 bundler.on('log', gutil.log);
 

@@ -25,7 +25,7 @@
     "knockout-validation": "^2.0.3",
     "knockout-dragula": "^0.2.3",
     "knockout-es5-option4": "^0.8.1",
-    "axios": "^0.16.0",
+    "axios": "^0.16.1",
     "js-signals": "^1.0.0",
     "sammy": "^0.7.6"
   }
