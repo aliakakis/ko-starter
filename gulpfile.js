@@ -108,7 +108,7 @@ gulp.task('copy:lib', ['clean'], function () {
 });
 
 gulp.task('optimize:styles', ['clean'], function () {
-     gulp.src('css/fonts/**/*')
+    gulp.src('css/fonts/**/*')
         .pipe(gulp.dest('build/dist/css/fonts/'));
 
     gulp.src('css/images/**/*')
