@@ -191,7 +191,7 @@ bundler.transform(stringify, {
     minify: false
 });
 
-gulp.task('run:watchify', ['run:dev'], bundle);
+gulp.task('run:watchify', ['watch:styles', 'run:dev'], bundle);
 bundler.on('update', bundle);
 bundler.on('log', gutil.log);
 
