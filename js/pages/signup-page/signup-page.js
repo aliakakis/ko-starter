@@ -1,4 +1,4 @@
-class SignUp {
+class SignUpPage {
     constructor() {
         this.model = ko.observe({
             firstName: 'Bob',
@@ -22,6 +22,6 @@ class SignUp {
 }
 
 export default {
-    viewModel: SignUp,
+    viewModel: SignUpPage,
     template: require('./signup-page.html')
 };

@@ -1,4 +1,4 @@
-class LoginPage {
+export default class LoginStore {
     constructor() {
         this.username = ko.observable("John");
         this.arr = ko.observableArray([1, 2, 3]);
@@ -8,8 +8,3 @@ class LoginPage {
         this.username("Jack");
     }
 }
-
-export default {
-    viewModel: LoginPage,
-    template: require('./login-page.html')
-};
