@@ -69,10 +69,10 @@ gulp.task('optimize:scripts', ['clean'], function() {
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
-        .pipe(sourcemaps.init({largeFile: true}))
-        .pipe(gulpif(argv.production, uglify()))
-        .pipe(gulpif(argv.production, stripdebug()))
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(!optimizeAssets, sourcemaps.init({largeFile: true})))
+        .pipe(gulpif(optimizeAssets, uglify()))
+        .pipe(gulpif(optimizeAssets, stripdebug()))
+        .pipe(gulpif(!optimizeAssets, sourcemaps.write()))
         .pipe(gulp.dest('build/dist/scripts/'));
 });
 
@@ -116,10 +116,10 @@ gulp.task('optimize:styles', ['clean'], function () {
         .pipe(gulp.dest('build/dist/css/images/'));
 
     return gulp.src(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'])
-        .pipe(sourcemaps.init({largeFile: true}))
+        .pipe(gulpif(!optimizeAssets, sourcemaps.init({largeFile: true})))
         .pipe(sass())
         .pipe(gulpif(optimizeAssets, cleancss()))
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(!optimizeAssets, sourcemaps.write()))
         .pipe(gulp.dest('build/dist/css/'));
 });
 
@@ -152,9 +152,10 @@ gulp.task('replace_styles', ['clean_styles'], function () {
         .pipe(gulp.dest('build/dist/css/images/'));
 
     return gulp.src(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'])
-        .pipe(sourcemaps.init({largeFile: true}))
+        .pipe(gulpif(!optimizeAssets, sourcemaps.init({largeFile: true})))
         .pipe(sass())
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(optimizeAssets, cleancss()))
+        .pipe(gulpif(!optimizeAssets, sourcemaps.write()))
         .pipe(gulp.dest('build/dist/css/'));
 });
 
