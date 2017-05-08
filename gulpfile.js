@@ -60,7 +60,7 @@ gulp.task('clean', function () {
  * Browserify Development
  */
 gulp.task('optimize:scripts', ['clean'], function() {
-    return browserify('./js/index.js')
+    return browserify('src/js/index.js')
         .transform(babelify)
         .transform(stringify, {
             appliesTo: { includeExtensions: ['.html'] },
@@ -80,7 +80,7 @@ gulp.task('optimize:scripts', ['clean'], function() {
  * Testing
  */
 gulp.task('test', function () {
-    return gulp.src('js/dev/**/*.spec.js', { read: false })
+    return gulp.src('src/js/dev/**/*.spec.js', { read: false })
         .pipe(mocha({
             compilers: {
                 js: babel
@@ -94,7 +94,7 @@ gulp.task('optimize:templates', ['clean', 'optimize:styles', 'optimize:scripts']
 });
 
 gulp.task('copy:lib', ['clean'], function () {
-    gulp.src('js/lib/**/*')
+    gulp.src('src/js/lib/**/*')
         .pipe(gulp.dest('build/dist/scripts/lib/'));
 
     gulp.src('semantic/dist/themes/**/*')
@@ -108,14 +108,14 @@ gulp.task('copy:lib', ['clean'], function () {
 });
 
 gulp.task('optimize:styles', ['clean'], function () {
-    gulp.src('css/fonts/**/*')
+    gulp.src('src/css/fonts/**/*')
         .pipe(gulp.dest('build/dist/css/fonts/'));
 
-    gulp.src('css/images/**/*')
+    gulp.src('src/css/images/**/*')
         .pipe(gulpif(optimizeAssets, imagemin()))
         .pipe(gulp.dest('build/dist/css/images/'));
 
-    return gulp.src(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'])
+    return gulp.src(['src/css/styles/**/*.css', 'src/css/styles/sass/**/*.scss'])
         .pipe(gulpif(!optimizeAssets, sourcemaps.init({largeFile: true})))
         .pipe(sass())
         .pipe(gulpif(optimizeAssets, cleancss()))
@@ -141,17 +141,19 @@ gulp.task('run:prod', ['set-prod-node-env', 'clean', 'optimize:scripts', 'optimi
  * Watch for changes
  */
 gulp.task('clean_styles', function () {
+    del('build/dist/index.html');
+
     return del('build/dist/css/');
 });
 
 gulp.task('replace_styles', ['clean_styles'], function () {
-    gulp.src('css/fonts/**/*')
+    gulp.src('src/css/fonts/**/*')
         .pipe(gulp.dest('build/dist/css/fonts/'));
 
-    gulp.src('css/images/**/*')
+    gulp.src('src/css/images/**/*')
         .pipe(gulp.dest('build/dist/css/images/'));
 
-    return gulp.src(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'])
+    return gulp.src(['src/css/styles/**/*.css', 'src/css/styles/sass/**/*.scss'])
         .pipe(gulpif(!optimizeAssets, sourcemaps.init({largeFile: true})))
         .pipe(sass())
         .pipe(gulpif(optimizeAssets, cleancss()))
@@ -160,32 +162,19 @@ gulp.task('replace_styles', ['clean_styles'], function () {
 });
 
 gulp.task('watch:styles', function () {
-    return gulp.watch(['css/styles/**/*.css', 'css/styles/sass/**/*.scss'], ['replace_styles']);
+    return gulp.watch(['src/css/styles/**/*.css', 'src/css/styles/sass/**/*.scss'], ['replace_styles']);
 });
 
 /**
  * Watchify
  */
 var bundler = watchify(browserify(watchify.args));
-var files = filepaths.getSync(['./js'], {
+var files = filepaths.getSync(['./src/js'], {
     ext:    ['.js', '.html'],
     ignore: ['lib']
 });
+
 bundler.add(files);
-/*[
- './js/index.js',
- './js/app-routes.js',
- './js/app-start/app-start.js',
- './js/common/components/app-header.js',
- './js/pages/home-page/home-page.js',
- './js/pages/login-page/login-page.html',
- './js/pages/login-page/login-page.js',
- './js/pages/signup-page/signup-page.html',
- './js/pages/signup-page/signup-page.js',
- './js/stores/app-store.js',
- './js/stores/login-store.js',
- './js/stores/signup-store.js'
- ]*/
 bundler.transform(babelify);
 bundler.transform(stringify, {
     appliesTo: { includeExtensions: ['.html'] },
