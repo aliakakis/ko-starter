@@ -1,6 +1,6 @@
 class AppRoutes {
     constructor() {
-        this.currentRoute = ko.observable('');
+        this.currentRoute = ko.observable('home-page');
         this.appRoutes = Sammy('#app');
 
         /* START ADD ROUTES */
