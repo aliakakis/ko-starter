@@ -1,4 +1,4 @@
-class AppRoutes {
+class AppRoutesComponent {
     constructor() {
         this.currentRoute = ko.observable('home-page');
         this.appRoutes = Sammy('#app');
@@ -33,4 +33,4 @@ class AppRoutes {
     };
 }
 
-export default AppRoutes;
+export default AppRoutesComponent;

@@ -1,4 +1,4 @@
-class LoginPage {
+class HomePageComponent {
     constructor() {
         this.username = ko.observable("John");
         this.arr = ko.observableArray([1, 2, 3]);
@@ -10,6 +10,9 @@ class LoginPage {
 }
 
 export default {
-    viewModel: LoginPage,
-    template: require('./login-page.html')
+    viewModel: HomePageComponent,
+    template: `
+    <div class="card card-signup">
+        Home
+    </div>`
 };

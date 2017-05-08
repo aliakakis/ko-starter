@@ -1,19 +1,19 @@
 /**
  * Bootstrap application
  */
-import AppStart from './app-start/app-start';
+import AppStart from './app-start/app-start.component';
 
 /**
  * Common components for entire app
  */
-import AppHeader from './common/components/app-header';
+import AppHeader from './common/components/app-header.component';
 
 /**
  * Routes
  */
-import HomePage from './pages/home-page/home-page';
-import SignUpPage from './pages/signup-page/signup-page';
-import LoginPage from './pages/login-page/login-page';
+import HomePage from './pages/home-page/home-page.component';
+import SignUpPage from './pages/signup-page/signup-page.component';
+import LoginPage from './pages/login-page/login-page.component';
 
 /**
  * Bootstrap application component

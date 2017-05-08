@@ -1,4 +1,4 @@
-class AppHeader {
+class AppHeaderComponent {
     constructor() {
         this.username = ko.observable("John");
         this.arr = ko.observableArray([1, 2, 3]);
@@ -10,7 +10,7 @@ class AppHeader {
 }
 
 export default {
-    viewModel: AppHeader,
+    viewModel: AppHeaderComponent,
     template: `
         <div class="ui secondary  menu">
           <a href="#/" class="active item">

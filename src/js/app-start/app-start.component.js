@@ -1,13 +1,13 @@
-import Router from '../app-routes';
+import Router from '../app-routes.component';
 
-class AppStart {
+class AppStartComponent {
     constructor() {
         this.router = new Router();
     }
 }
 
 export default {
-    viewModel: AppStart,
+    viewModel: AppStartComponent,
     template: `
         <div data-bind='component: {name: router.currentRoute, params: {}}'></div>
     `
