@@ -9,7 +9,7 @@ var extractSass = new ExtractTextPlugin({
 });
 
 module.exports = {
-    watch: false,
+    watch: true,
     entry: './src/js/index.js',
     output: {
         filename: 'bundle.js',
