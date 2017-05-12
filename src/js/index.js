@@ -1,6 +1,7 @@
 /**
  * Bootstrap application
  */
+import '../css/styles/sass/screen.scss';
 import AppStart from './app-start/app-start.component';
 
 /**

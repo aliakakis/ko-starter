@@ -23,5 +23,5 @@ class SignUpPageComponent {
 
 export default {
     viewModel: SignUpPageComponent,
-    template: require('./signup-page.component.html')
+    template: require('html-loader!./signup-page.component.html')
 };
