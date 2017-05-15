@@ -7,14 +7,14 @@ import AppStart from './app-start/app-start.component';
 /**
  * Common components for entire app
  */
-import AppHeader from './common/components/app-header.component';
+import AppHeader from './shared/components/app-header/app-header.component';
 
 /**
  * Routes
  */
-import HomePage from './pages/home-page/home-page.component';
-import SignUpPage from './pages/signup-page/signup-page.component';
-import LoginPage from './pages/login-page/login-page.component';
+import HomePage from './routes/home/home-route.component';
+import SignUpPage from './routes/signup/signup-route.component';
+import LoginPage from './routes/login/login-route.component';
 
 /**
  * Bootstrap application component

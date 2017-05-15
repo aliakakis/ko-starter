@@ -11,5 +11,5 @@ class LoginPageComponent {
 
 export default {
     viewModel: LoginPageComponent,
-    template: require('html-loader!./login-page.component.html')
+    template: require('html-loader!./login-route.component.html')
 };
