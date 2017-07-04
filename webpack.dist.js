@@ -63,6 +63,10 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             comments: false
         }),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
+        }),
         new CopyWebpackPlugin([
             { from: 'index.html' },
 
@@ -72,5 +76,10 @@ module.exports = {
             { from: 'src/css/fonts', to: 'css/fonts' },
             { from: 'src/css/images', to: 'css/images' },
         ]),
-    ]
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, 'build'),
+        compress: true,
+        port: 9000
+    }
 };
