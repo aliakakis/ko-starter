@@ -1,4 +1,4 @@
-class HomePageComponent {
+class HomeRouteComponent {
     constructor() {
         this.username = ko.observable("John");
         this.arr = ko.observableArray([1, 2, 3]);
@@ -10,7 +10,7 @@ class HomePageComponent {
 }
 
 export default {
-    viewModel: HomePageComponent,
+    viewModel: HomeRouteComponent,
     template: `
     <div class="card card-signup">
         Home

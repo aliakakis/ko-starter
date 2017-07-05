@@ -1,4 +1,4 @@
-class SignUpPageComponent {
+class SignUpRouteComponent {
     constructor() {
         this.model = ko.observe({
             firstName: 'Bob',
@@ -22,6 +22,6 @@ class SignUpPageComponent {
 }
 
 export default {
-    viewModel: SignUpPageComponent,
+    viewModel: SignUpRouteComponent,
     template: require('html-loader!./signup-route.component.html')
 };

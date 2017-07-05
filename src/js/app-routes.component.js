@@ -1,19 +1,19 @@
 class AppRoutesComponent {
     constructor() {
-        this.currentRoute = ko.observable('home-page');
+        this.currentRoute = ko.observable('home-route');
         this.appRoutes = Sammy('#app');
 
         /* START ADD ROUTES */
         this.appRoutes.get('#/', (context) => {
-            this.loadRoute('home-page');
+            this.loadRoute('home-route');
         });
 
         this.appRoutes.get('#/login', (context) => {
-            this.loadRoute('login-page');
+            this.loadRoute('login-route');
         });
 
         this.appRoutes.get('#/signup', (context) => {
-            this.loadRoute('signup-page');
+            this.loadRoute('signup-route');
         });
 
         this.appRoutes.get('', (context) => {

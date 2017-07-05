@@ -12,9 +12,9 @@ import AppHeader from './shared/components/app-header/app-header.component';
 /**
  * Routes
  */
-import HomePage from './routes/home/home-route.component';
-import SignUpPage from './routes/signup/signup-route.component';
-import LoginPage from './routes/login/login-route.component';
+import HomeRoute from './routes/home/home-route.component';
+import SignUpRoute from './routes/signup/signup-route.component';
+import LoginRoute from './routes/login/login-route.component';
 
 /**
  * Bootstrap application component
@@ -29,9 +29,9 @@ ko.components.register('app-header', AppHeader);
 /**
  * Routes components
  */
-ko.components.register('home-page', HomePage);
-ko.components.register('signup-page', SignUpPage);
-ko.components.register('login-page', LoginPage);
+ko.components.register('home-route', HomeRoute);
+ko.components.register('signup-route', SignUpRoute);
+ko.components.register('login-route', LoginRoute);
 
 
 ko.applyBindings();

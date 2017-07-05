@@ -1,11 +1,18 @@
+import AppSidebarStore from '../../../stores/shared/app-sidebar/app-sidebar.store';
+
 class AppHeaderComponent {
     constructor() {
         this.username = ko.observable("John");
         this.arr = ko.observableArray([1, 2, 3]);
+        this.appSidebarStore = new AppSidebarStore();
     }
 
     _signUpBtn() {
         this.username("Jack");
+    }
+
+    _changeTab() {
+        this.appSidebarStore.newTab("newTab 1");
     }
 }
 
@@ -21,6 +28,9 @@ export default {
           </a>
           <a href="#/signup" class="item">
             Friends
+          </a>
+          <a data-bind="text: appSidebarStore.newTab, click: _changeTab" href="#" class="item">
+            
           </a>
           <div class="right menu">
             <div class="item">

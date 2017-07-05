@@ -1,4 +1,4 @@
-class LoginPageComponent {
+class LoginRouteComponent {
     constructor() {
         this.username = ko.observable("John");
         this.arr = ko.observableArray([1, 2, 3]);
@@ -10,6 +10,6 @@ class LoginPageComponent {
 }
 
 export default {
-    viewModel: LoginPageComponent,
+    viewModel: LoginRouteComponent,
     template: require('html-loader!./login-route.component.html')
 };
